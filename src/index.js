@@ -13,7 +13,7 @@ var verifyGithubSignature = BodyParser.json
 ( { verify: function( req, res, buffer )
     {
       if ( !req.headers['x-hub-signature'] )
-        throw new Error('No X-Hub-Signature found on request')
+        throw new Error( 'No X-Hub-Signature found on request' )
 
       if ( !req.headers['x-github-event'] )
         throw new Error( 'No X-Github-Event found on request' )
@@ -22,7 +22,7 @@ var verifyGithubSignature = BodyParser.json
         throw new Error( 'No X-Github-Delivery found on request' )
 
       var received_sig = req.headers['x-hub-signature']
-      var computed_sig = Utils.signBlob( 'secret', buffer )
+      var computed_sig = Utils.signBlob( secret, buffer )
 
       if ( received_sig !== computed_sig )
         throw new Error( 'Not valid Github signature' )
