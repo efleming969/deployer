@@ -1,0 +1,6 @@
+node_modules
+target
+tmp
+static/index.js
+static/coverage
+static/aws-credentials.json
