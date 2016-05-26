@@ -35,7 +35,7 @@ app.post
 , verifyGithubSignature
 , function( req, res )
   {
-    console.log( JSON.stringify( req.body ) )
+    console.log( 'all is good' )
     res.send( { "ok": true } )
   }
 )
