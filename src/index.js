@@ -3,29 +3,26 @@ var HTTP = require( 'http' )
 var Express = require( 'express' )
 var BodyParser = require( 'body-parser' )
 var ChildProcess = require( 'child_process' )
+var RF = require( 'ramda-fantasy' )
+
+var Success = RF.Either.Left
+var Failure = RF.Either.Right
 
 var Utils = require( './Utils' )
 
 var secret = process.env.GITHUB_WEBHOOK_SECRET
 var app = Express()
 
+
 var verifyGithubSignature = BodyParser.json
 ( { verify: function( req, res, buffer )
     {
-      if ( !req.headers['x-hub-signature'] )
-        throw new Error( 'No X-Hub-Signature found on request' )
+      var githubProps = Utils.extractGithubProps( req.headers )
 
-      if ( !req.headers['x-github-event'] )
-        throw new Error( 'No X-Github-Event found on request' )
-
-      if ( !req.headers['x-github-delivery'] )
-        throw new Error( 'No X-Github-Delivery found on request' )
-
-      var received_sig = req.headers['x-hub-signature']
-      var computed_sig = Utils.signBlob( secret, buffer )
-
-      if ( received_sig !== computed_sig )
-        throw new Error( 'Not valid Github signature' )
+      if ( githubProps.isLeft )
+        throw new Error( githubProps.value )
+      else if ( githubProps.xHubSignature !== Utils.signBlob( secret, buffer ) )
+        throw new Error( 'Not valid github signature:' + secret )
     }
   }
 )
