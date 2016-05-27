@@ -21,8 +21,8 @@ var verifyGithubSignature = BodyParser.json
 
       if ( githubProps.isLeft )
         throw new Error( githubProps.value )
-      else if ( githubProps.xHubSignature !== Utils.signBlob( secret, buffer ) )
-        throw new Error( 'Not valid github signature:' + secret )
+      else if ( githubProps.value.xHubSignature !== Utils.signBlob( secret, buffer ) )
+        throw new Error( 'Not valid github signature' )
     }
   }
 )
