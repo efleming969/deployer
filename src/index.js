@@ -13,10 +13,8 @@ var Utils = require( './Utils' )
 var secret = process.env.GITHUB_WEBHOOK_SECRET
 var app = Express()
 
-
-var verifyGithubSignature = BodyParser.json
-( { verify: function( req, res, buffer )
-    {
+var verifyGithubSignature = BodyParser.json(
+  { verify: function( req, res, buffer ) {
       var githubProps = Utils.extractGithubProps( req.headers )
 
       if ( githubProps.isLeft )
