@@ -25,6 +25,14 @@ var verifyGithubSignature = BodyParser.json(
   }
 )
 
+app.get(
+  '/'
+, function( req, res )
+  {
+    res.send( '<h1>Deployer</h1>' )
+  }
+)
+
 app.post
 ( "/webhook"
 , verifyGithubSignature
