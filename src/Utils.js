@@ -40,6 +40,9 @@ var signBlob = exports.signBlob = function( key, blob ) {
     .digest( 'hex' )
 }
 
+var chainHasProp = exports.chainHasProp = function( a, b ) {
+  return a.chain( hasProp( b ) )
+}
 
 var extractGithubProps = exports.extractGithubProps = function( obj ) {
   var props = [
@@ -48,14 +51,9 @@ var extractGithubProps = exports.extractGithubProps = function( obj ) {
   , 'x-github-delivery'
   ]
 
-  var chainHasProp = function( a, b ) {
-    return a.chain( hasProp( b ) )
-  }
-
   return R
     .reduce( chainHasProp, RF.Either.Right( obj ), props )
     .map( R.pick( props ) )
     .map( objKeysToCamel )
-    .bimap( stringToError, R.identity )
 }
 
