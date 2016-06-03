@@ -4,6 +4,7 @@ var Express = require( 'express' )
 var BodyParser = require( 'body-parser' )
 var ChildProcess = require( 'child_process' )
 var RF = require( 'ramda-fantasy' )
+var HTTPProxy = require( 'http-proxy' )
 
 var Success = RF.Either.Left
 var Failure = RF.Either.Right
@@ -12,9 +13,11 @@ var Utils = require( './Utils' )
 
 var secret = process.env.GITHUB_WEBHOOK_SECRET
 var app = Express()
+var proxy = HTTPProxy.createProxyServer()
 
 var verifyGithubSignature = BodyParser.json(
-  { verify: function( req, res, buffer ) {
+  { verify: function( req, res, buffer )
+    {
       var githubProps = Utils.extractGithubProps( req.headers )
 
       if ( githubProps.isLeft )
@@ -29,12 +32,13 @@ app.get(
   '/'
 , function( req, res )
   {
-    res.send( '<h1>Deployer</h1>' )
+    proxy.web( req, res, { target: 'http://webowler:8080' } )
+    //res.send( '<h1>Deployer</h1>' )
   }
 )
 
-app.post
-( "/webhook"
+app.post(
+  "/webhook"
 , verifyGithubSignature
 , function( req, res )
   {
@@ -43,8 +47,8 @@ app.post
   }
 )
 
-app.post
-( "/webhook-test"
+app.post(
+  "/webhook-test"
 , function( req, res )
   {
     var process = ChildProcess.spawn('echo', ['hello']);
@@ -52,8 +56,8 @@ app.post
     res.statusCode = 200
     res.write( 'started process\n' )
 
-    process.stdout.on
-    ( 'data'
+    process.stdout.on(
+      'data'
     , function( data )
       {
         res.end( 'received: ' + data.toString() )
@@ -62,4 +66,5 @@ app.post
   }
 )
 
-HTTP.createServer( app ).listen( 9000 )
+HTTP.createServer( app ).listen( 8080 )
+
