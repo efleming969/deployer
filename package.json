@@ -1,6 +1,8 @@
 {
   "name": "deployer",
   "version": "1.0.0",
+  "description": "sudogs deployer",
+  "repository": {},
   "scripts": {
     "server-main": "nodemon --watch src/ src/server/Main.js",
     "server-unit-tests": "node src/server/UnitTests.js",
