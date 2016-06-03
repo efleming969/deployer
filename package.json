@@ -1,14 +1,11 @@
 {
   "name": "deployer",
   "version": "1.0.0",
-  "description": "",
-  "main": "src/index.js",
   "scripts": {
     "server-main": "nodemon --watch src/ src/server/Main.js",
     "server-unit-tests": "node src/server/UnitTests.js",
     "server-unit-tests-c": "nodemon --watch src/ src/server/UnitTests.js"
   },
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.1",
