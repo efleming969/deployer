@@ -1,7 +1,0 @@
-[Unit]
-Description='A service for handling simple ci builds'
-
-[Service]
-Type=simple
-User=erick
-ExecStart=/usr/bin/nodejs /home/erick/builder/index.js
