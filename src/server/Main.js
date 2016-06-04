@@ -5,7 +5,6 @@ var BodyParser = require( 'body-parser' )
 var ChildProcess = require( 'child_process' )
 
 var Utils = require( './Utils' )
-var Bundler = require( './Bundler' )
 var MainView = require( './MainView' )
 
 var secret = process.env.GITHUB_WEBHOOK_SECRET
@@ -43,7 +42,8 @@ var kickOffDeploymentScript = function( req, res )
   )
 }
 
-app.get( '/index.js' , Bundler( 'src/client/Main.js' ) )
+app.use( Express.static( '.' ) )
+
 app.get( '/' , MainView.renderer() )
 
 app.post( '/webhook'
