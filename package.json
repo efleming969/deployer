@@ -4,7 +4,7 @@
   "description": "sudogs deployer",
   "repository": {},
   "scripts": {
-    "server-main": "nodemon --watch src/ src/server/Main.js",
+    "server": "nodemon --watch src/ src/server/Main.js",
     "server-unit-tests": "node src/server/UnitTests.js",
     "server-unit-tests-c": "nodemon --watch src/ src/server/UnitTests.js"
   },
