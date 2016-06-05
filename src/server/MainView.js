@@ -10,8 +10,7 @@ var head = function()
 
       <link rel="shortcut icon" href="/favicon.ico?v=1">
 
-      <script src="/node_modules/ramda/dist/ramda.js"></script>
-      <script src="/src/client/Main.js"></script>
+      <script src="/index.js"></script>
 
     </head>
   `

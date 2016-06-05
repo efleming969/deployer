@@ -1,6 +1,4 @@
-var Main = {}
-
-Main.run = function()
+exports.run = function()
 {
   console.log( 'Main#run' )
 }

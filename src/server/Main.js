@@ -3,6 +3,7 @@ var HTTP = require( 'http' )
 var Express = require( 'express' )
 var BodyParser = require( 'body-parser' )
 var ChildProcess = require( 'child_process' )
+var Bundler = require( 'lymph-bundler' )
 
 var Utils = require( './Utils' )
 var MainView = require( './MainView' )
@@ -44,6 +45,7 @@ var kickOffDeploymentScript = function( req, res )
 
 app.use( Express.static( '.' ) )
 
+app.get( '/index.js' , Bundler.create( 'src/client/Main.js' ) )
 app.get( '/' , MainView.renderer() )
 
 app.post( '/webhook'
