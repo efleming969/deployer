@@ -12,6 +12,10 @@ var head = function()
 
       <script src="/index.js"></script>
 
+      <script>
+        document.addEventListener( "DOMContentLoaded", Main.run )
+      </script>
+
     </head>
   `
 }
@@ -20,7 +24,6 @@ var body = function()
 {
   return `
     <body>
-
       <main id="main" role="main">
         <header>
           <progress max="100" value="0" style="width:100%"></progress>
@@ -28,10 +31,6 @@ var body = function()
         <section><h1>deployer:1.0.0</h1></section>
         <footer></footer>
       </main>
-
-      <script>
-        document.addEventListener( "DOMContentLoaded", Main.run )
-      </script>
     </body>
   `
 }

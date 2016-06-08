@@ -45,6 +45,13 @@ var kickOffDeploymentScript = function( req, res )
 
 app.use( Express.static( '.' ) )
 
+app.get( '/api/test'
+  , function( req, res )
+    {
+      res.send( 'ok' )
+    }
+  )
+
 app.get( '/index.js' , Bundler.create( 'src/client/Main.js' ) )
 app.get( '/' , MainView.renderer() )
 
