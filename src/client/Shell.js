@@ -14,36 +14,55 @@ var createEvent = function( name, data ) {
     { detail: data, bubbles: true, cancelable: true } )
 }
 
-var bubbleDomainAs = function( type ) {
+var bubbleDomain = function( type, data ) {
   return function( domEvent ) {
     domEvent.target.dispatchEvent(
-      createEvent( "domain", { type: type, data: 'one' } ) )
+      createEvent( "domain", { type: type, data: data } ) )
+  }
+}
+
+var bubbleDomainValue = function( type ) {
+  return function( domEvent ) {
+    domEvent.target.dispatchEvent(
+      createEvent( "domain", { type: type, data: domEvent.target.value } ) )
   }
 }
 
 var events = {
-  Sample: 'sample'
+  NameSubmitted: 0,
+  NameChanged: 1
+}
+
+var createNewEntry = function( data ) {
+  return R.evolve( { apps: R.append( { name: data.name } ) }, data )
 }
 
 exports.init = function() {
-  return { apps: [] }
+  return { apps: [], name: '' }
 }
 
 exports.update = function( event ) {
   switch( event.type ) {
-    case events.Sample: return R.evolve( { apps: R.append( { name: event.data } ) } )
-    default:       return R.identity
+    case events.NameSubmitted:
+      return createNewEntry
+    case events.NameChanged:
+      return R.evolve( { name: R.always( event.data ) } )
+    default:
+      return R.identity
   }
 }
+
+var logit = function( x ) { console.log( x ) }
 
 exports.view = function( state ) {
   return HTML.create( 'main', { id: 'main' }
     , [ HTML.create( 'h1', {}, [ 'Deployer' ] )
       , viewApps( state.apps )
       , HTML.create( 'button'
-          , { id: 'clickme', on: { click: bubbleDomainAs( events.Sample ) } }
+          , { id: 'clickme', on: { click: bubbleDomain( events.NameSubmitted ) } }
           , [ 'click me' ]
           )
+      , HTML.create( 'input', { on: { input: bubbleDomainValue( events.NameChanged ) } }, [] )
       ]
     )
 }
