@@ -1,4 +1,4 @@
-var R = require( 'ramda' )
+var R = window.R = require( 'ramda' )
 var DOMPatcher = require( 'lymph-client/src/DOMPatcher' )
 
 var Shell = require( './Shell' )
