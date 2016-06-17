@@ -1,24 +1,30 @@
+var R = require( 'ramda' )
 var TestCore = require( 'lymph-test/lib/Core' )
 
 var logger = {
   log: function( msg, a, b ) {
     if ( a == undefined && b == undefined )
       console.log( msg )
-    else
+    else {
       console.log( msg, a, b )
+      console.log( '' )
+      console.log( '>', msg, a, b )
+      console.log( '' )
+    }
   }
 }
 
 var whenDone = TestCore.run( logger )( 'UnitTests', {
+
   'extractGithubProps': function( when ) {
       var Utils = require( './Utils' )
 
       when( {
         'extracting incomplete properties': function( then ) {
             var obj = {
-              'x-github-event': '1'
-            , 'x-github-delivery': '2'
-            }
+                'x-github-event': '1'
+              , 'x-github-delivery': '2'
+              }
 
             var rst = Utils.extractGithubProps( obj )
 
@@ -28,10 +34,10 @@ var whenDone = TestCore.run( logger )( 'UnitTests', {
           }
         , 'extracting complete properties': function( then ) {
             var obj = {
-              'x-hub-signature': '1'
-            , 'x-github-event': '2'
-            , 'x-github-delivery': '3'
-            }
+                'x-hub-signature': '1'
+              , 'x-github-event': '2'
+              , 'x-github-delivery': '3'
+              }
 
             var rst = Utils.extractGithubProps( obj )
 
@@ -42,6 +48,58 @@ var whenDone = TestCore.run( logger )( 'UnitTests', {
             } )
           }
       } )
+
+  }
+
+, 'deployments': function( when ) {
+
+    var Deployments = require( './Deployments' )
+    var createDeploymentsFrom = R.reduce( Deployments.handle, Deployments.init() )
+
+    when( {
+
+      'adding a deployment': function( then ) {
+
+        var state = createDeploymentsFrom( [] )
+        var events = Deployments.add( state, { id: '1' } )
+
+        then( {
+
+          'DeploymentAdded': [
+              events
+            , [ { eventType: 'DeploymentAdded', data: { id: '1' } } ]
+            ]
+
+        } )
+      }
+
+    , 'completing an existing deployment': function( then ) {
+
+        var state = createDeploymentsFrom( [
+          { eventType: 'DeploymentAdded', data: { id: '1' } }
+        ] )
+
+        var events = Deployments.complete( state, '1' )
+
+        then( {
+          'DeploymentCompleted': [
+              events
+            , [ { eventType: 'DeploymentCompleted', data: { id: '1' } } ]
+            ]
+        } )
+      }
+
+    , 'completing a non existing deployment': function( then ) {
+
+        var state = createDeploymentsFrom( [] )
+        var events = Deployments.complete( state, '1' )
+
+        then( {
+          'none': [ events , [] ]
+        } )
+      }
+
+    } )
   }
 
 , 'event store': function( test ) {
