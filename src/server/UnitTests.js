@@ -95,7 +95,7 @@ var whenDone = TestCore.run( logger )( 'UnitTests', {
         var events = Deployments.complete( state, '1' )
 
         then( {
-          'none': [ events , [] ]
+          'nothing': [ events , [] ]
         } )
       }
 
