@@ -9,9 +9,9 @@ COPY package.json /usr/src/app
 RUN npm install
 
 # copy sources into working directory
-# COPY . /usr/src/app
+COPY . /usr/src/app
 
-# make available on port 8080
-EXPOSE 80
+# make http & https available
+EXPOSE 80 443
 
-#CMD node src/server/Main.js
+CMD node src/server/Main.js
