@@ -56,7 +56,7 @@ app.use( '/', function ( req, res ) {
 
 lexServer = LEX.create( {
   // ~/letsencrypt, /etc/letsencrypt, whatever you want
-  configDir: './letsencrypt.config'
+  configDir: './letsencrypt'
   // your express app (or plain node http app )
 , onRequest: app
   // you can provide you own instance of letsencrypt if you need to configure it (with an agreeToTerms callback, for example )
