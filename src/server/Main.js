@@ -46,7 +46,8 @@
 // HTTP.createServer( app ).listen( 8080 )
 
 // Note: using staging server url, remove .testing( ) for production
-var LEX = require( 'letsencrypt-express' ).testing( )
+// var LEX = require( 'letsencrypt-express' ).testing( )
+var LEX = require( 'letsencrypt-express' )
 var express = require( 'express' )
 var app = express( )
 
