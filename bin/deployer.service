@@ -4,4 +4,9 @@ Description='a service for running and managing applications'
 [Service]
 Type=simple
 User=erick
+ExecStartPre=iptables -t nat -A PREROUTING -i ens4 -p tcp --dport 80 -j REDIRECT --to-port 8080
+ExecStartPre=iptables -t nat -A PREROUTING -i ens4 -p tcp --dport 443 -j REDIRECT --to-port 8080
 ExecStart=/usr/bin/nodejs /home/erick/deployer/src/server/Main.js
+
+[Install]
+WantedBy=multi-user.target

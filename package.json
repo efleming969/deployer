@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.1",
+    "dockerode": "^2.2.10",
     "express": "^4.13.4",
     "express-http-proxy": "^0.7.2",
     "http-proxy": "^1.14.0",
@@ -19,8 +20,7 @@
     "lymph-client": "^0.11.0",
     "ramda": "^0.21.0",
     "ramda-fantasy": "^0.5.0",
-    "rocky": "^0.4.12",
-    "sqlite3": "^3.1.4"
+    "rocky": "^0.4.12"
   },
   "devDependencies": {
     "lymph-test": "^0.10.0",
