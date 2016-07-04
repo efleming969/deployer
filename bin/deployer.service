@@ -1,0 +1,7 @@
+[Unit]
+Description='a service for running and managing applications'
+
+[Service]
+Type=simple
+User=erick
+ExecStart=/usr/bin/nodejs /home/erick/deployer/src/server/Main.js
