@@ -52,7 +52,9 @@ exports.update = function( event ) {
   }
 }
 
-var logit = function( x ) { console.log( x ) }
+var logit = function( x ) {
+  console.log( x )
+}
 
 exports.view = function( state ) {
   return HTML.create( 'main', { id: 'main' }
@@ -62,7 +64,10 @@ exports.view = function( state ) {
           , { id: 'clickme', on: { click: bubbleDomain( events.NameSubmitted ) } }
           , [ 'click me' ]
           )
-      , HTML.create( 'input', { on: { input: bubbleDomainValue( events.NameChanged ) } }, [] )
+      , HTML.create( 'input'
+          , { on: { input: bubbleDomainValue( events.NameChanged ) } }
+          , []
+          )
       ]
     )
 }

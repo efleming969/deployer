@@ -1,8 +1,7 @@
-var head = function()
-{
+var head = function() {
   return `
     <head>
-      <title>Deployer</title>
+      <title>Sudogs</title>
 
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -11,34 +10,27 @@ var head = function()
       <link rel="shortcut icon" href="/favicon.ico?v=1">
 
       <script src="/index.js"></script>
-
-      <script>
-        document.addEventListener( "DOMContentLoaded", Main.run )
-      </script>
-
+      <script>document.addEventListener( "DOMContentLoaded", Main.run )</script>
     </head>
   `
 }
 
-var body = function()
-{
+var body = function() {
   return `
     <body>
       <main id="main" role="main">
         <header>
           <progress max="100" value="0" style="width:100%"></progress>
         </header>
-        <section><h1>deployer:1.0.0</h1></section>
+        <section><h1>Sudogs</h1></section>
         <footer></footer>
       </main>
     </body>
   `
 }
 
-exports.renderer = function( configData )
-{
-  return function( req, res )
-  {
+exports.renderer = function( configData ) {
+  return function( req, res ) {
     res.set( 'Content-Type', 'text/html' )
     res.send( '<!doctype html>' + head() + body() )
   }
