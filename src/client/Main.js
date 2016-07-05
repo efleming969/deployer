@@ -9,18 +9,16 @@ var renderView = function() {
 
 exports.run = function() {
 
-  console.log( 'Main#run' )
+  document.body.innerHTML = ''
 
-  // document.body.innerHTML = ''
+  window.state = Shell.init()
+  window.requestAnimationFrame( renderView )
 
-  // window.state = Shell.init()
-  // window.requestAnimationFrame( renderView )
-
-  // window.addEventListener( 'domain', function( domEvent ) {
-  //   window.state = Shell.update( domEvent.detail )( window.state )
-  //   console.log( window.state )
-  //   window.requestAnimationFrame( renderView )
-  // } )
+  window.addEventListener( 'domain', function( domEvent ) {
+    window.state = Shell.update( domEvent.detail )( window.state )
+    console.log( window.state )
+    window.requestAnimationFrame( renderView )
+  } )
 
 }
 

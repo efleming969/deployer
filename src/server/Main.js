@@ -4,9 +4,7 @@ var Express = require( 'express' )
 var BodyParser = require( 'body-parser' )
 var ChildProcess = require( 'child_process' )
 var Bundler = require( 'lymph-bundler' )
-var Docker = require( 'dockerode' )
 
-var Utils = require( './Utils' )
 var MainView = require( './MainView' )
 
 var app = Express()
@@ -27,8 +25,5 @@ app.get( '/events', function( req, res ) {
 app.get( '/', MainView.renderer() )
 app.get( '/index.js', Bundler.create( 'src/client/Main.js' ) )
 
-// app.use( '/', function ( req, res ) {
-//   res.send( { success: true } )
-// } )
-
 HTTP.createServer( app ).listen( 8080 )
+

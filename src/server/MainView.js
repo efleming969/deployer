@@ -1,7 +1,7 @@
 var head = function() {
   return `
     <head>
-      <title>Sudogs</title>
+      <title>Deployer</title>
 
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -18,13 +18,7 @@ var head = function() {
 var body = function() {
   return `
     <body>
-      <main id="main" role="main">
-        <header>
-          <progress max="100" value="0" style="width:100%"></progress>
-        </header>
-        <section><h1>Sudogs</h1></section>
-        <footer></footer>
-      </main>
+      <main id="main" role="main"></main>
     </body>
   `
 }

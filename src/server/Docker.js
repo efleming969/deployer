@@ -1,3 +1,5 @@
+var Docker = require( 'dockerode' )
+
 // var startDockerContainer = function( callback ) {
 
 //   var docker = new Docker( { protocol:'http', host: '127.0.0.1', port: 4243 } )
