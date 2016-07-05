@@ -6,14 +6,21 @@ var ChildProcess = require( 'child_process' )
 var Bundler = require( 'lymph-bundler' )
 
 var MainView = require( './MainView' )
+var data = []
 
 var app = Express()
 
+app.use( BodyParser.json() )
 app.use( Express.static( 'static' ) )
 
-// app.post( '/applications/releases', function( req, res ) {
-//   res.send( 'id:' + req.params.id )
-// } )
+app.post( '/api/releases', function( req, res ) {
+  data.push( req.body )
+  res.sendStatus(200)
+} )
+
+app.get( '/api/releases', function( req, res ) {
+  res.send( data )
+} )
 
 app.get( '/events', function( req, res ) {
   if ( req.query.version )
